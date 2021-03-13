@@ -9,6 +9,8 @@ package com.gq.service;
 
 import com.gq.entity.WorkOrder;
 import com.gq.pojo.WeekOrders;
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,15 +18,24 @@ import java.util.List;
 
 public class WeekAndMonthService {
 
+     private static final Logger LOG = LoggerFactory.getLogger(WeekAndMonthService.class);
+
     public WeekOrders getWeekOrders(List<WorkOrder> list)
     {
-        List<WorkOrder> myOrders = null;
-        for (WorkOrder order : list)
-        {
-            if (order.getSolution().indexOf("李云海")>=0)
+        List<WorkOrder> myOrders = new ArrayList<>();
+        try {
+            for (WorkOrder order : list)
             {
-                myOrders.add(order);
+                if (order.getSolution().indexOf("李云海")>=0)
+                {
+                    if(order != null)
+                        myOrders.add(order);
+                    else
+                        continue;
+                }
             }
+        }catch (NullPointerException e){
+            LOG.error(e.getMessage());
         }
         List<WorkOrder> firstWeek = new ArrayList<>();
         List<WorkOrder> secondWeek = new ArrayList<>();
