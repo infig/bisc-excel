@@ -114,6 +114,9 @@ public class ExcelReader {
             Row firstRow = sheet.getRow(firstRowNum);
             if (firstRow == null)
                 LOG.warn("解析Excel失败，在第一行没有读取到任何数据");
+//            Cell cell = firstRow.getCell(0);
+//            String cellA1 = convertCellValueToString(cell);
+//            LOG.warn(cellA1);
 
             // 解析每行数据 构建对象
             int rowStart = firstRowNum + 1;
