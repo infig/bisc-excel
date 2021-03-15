@@ -32,6 +32,9 @@ public class Test {
             String s = order.toString();
             System.out.println(s);
         }
+        System.out.println(weekOrders.getFirstWeek().size() + weekOrders.getSecondWeek().size() +
+                weekOrders.getThirdWeek().size() + weekOrders.getFourthWeek().size());
+        System.out.println(weekOrders.getFirstWeek().size());
 //        for (WorkOrder order: workOrders)
 //        {
 //            String orderToString = order.toString();

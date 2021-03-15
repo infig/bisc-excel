@@ -23,20 +23,23 @@ public class WeekAndMonthService {
     public WeekOrders getWeekOrders(List<WorkOrder> list)
     {
         List<WorkOrder> myOrders = new ArrayList<>();
-        try {
             for (WorkOrder order : list)
             {
-                if (order.getSolution().indexOf("李云海")>=0)
-                {
-                    if(order != null)
-                        myOrders.add(order);
-                    else
-                        continue;
+                int index = 0;
+                try {
+                    if (order.getSolution().indexOf("李云海")>=0)
+                    {
+                        if(order != null)
+                            myOrders.add(order);
+                        else
+                            continue;
+                    }
+                    index++;
+                }catch (NullPointerException e){
+                    LOG.error(e.getMessage());
+                    LOG.error(String.valueOf(index));
                 }
             }
-        }catch (NullPointerException e){
-            LOG.error(e.getMessage());
-        }
         List<WorkOrder> firstWeek = new ArrayList<>();
         List<WorkOrder> secondWeek = new ArrayList<>();
         List<WorkOrder> thirdWeek = new ArrayList<>();
