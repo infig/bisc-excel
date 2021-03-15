@@ -31,13 +31,13 @@ public class ExcelWriter {
      * 导出数据
      * @param dataList 需要导出的数据
      * @return
+     * ============================已弃用========================
      */
-    public static Workbook exportData(Workbook workbook, List<WorkOrder> dataList ,String[] head,
-                                      String week,int sheetNum)
+    @Deprecated
+    public static Workbook exportData(List<WorkOrder> dataList)
     {
-//        Workbook workbook = new SXSSFWorkbook();
-        Sheet sheet = buildSheet(workbook,head);
-        workbook.setSheetName(sheetNum,week);
+        Workbook workbook = new SXSSFWorkbook();
+        Sheet sheet = buildSheet(workbook,dataList.get(0));
         int rowNum = 1;
         for (Iterator<WorkOrder> it = dataList.iterator(); it.hasNext();)
         {
@@ -50,13 +50,35 @@ public class ExcelWriter {
         return workbook;
     }
 
+
+    /**
+     * 创建sheet
+     * @param workbook workbook 对象
+     * @param order 表头
+     * @return sheet 对象
+     * ===============================已弃用==============================
+     */
+    @Deprecated
+    private static Sheet buildSheet(Workbook workbook, WorkOrder order)
+    {
+        List<WorkOrder> cellList = Arrays.asList(order);
+        Sheet sheet = workbook.createSheet();
+        Row row = sheet.createRow(0);
+        for (int i = 0; i<cellList.size(); i++)
+        {
+            Cell cell = row.createCell(i);
+            cell.setCellValue(String.valueOf(cellList.get(i)));
+        }
+        return sheet;
+    }
+
     /**
      * 创建 sheel
      * @param workbook workbook 对象
      * @param head 表头
      * @return
      */
-    private static Sheet buildSheet(Workbook workbook,String[] head) {
+    public static Sheet buildSheet(Workbook workbook,String[] head) {
         List<String> cellList = Arrays.asList(head);
         Sheet sheet = workbook.createSheet();
         Row row = sheet.createRow(0);

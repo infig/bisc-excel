@@ -9,6 +9,7 @@ package com.gq.excelUtils;
 
 import com.gq.entity.WorkOrder;
 import com.gq.pojo.WeekOrders;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
@@ -24,7 +25,6 @@ public class BuildExcel {
 //    public static Workbook build(WeekOrders weekOrders)
 //    {
 //        Workbook workbook = new SXSSFWorkbook();
-//        List<WorkOrder> firstWeek = weekOrders.getFirstWeek();
-//        ExcelWriter.exportData(workbook,firstWeek,orderHead,"第一周",0);
+//        Sheet sheet = ExcelWriter.buildSheet(workbook, orderHead);
 //    }
 }
