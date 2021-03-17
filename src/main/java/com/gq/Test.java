@@ -8,11 +8,15 @@
 package com.gq;
 
 import com.gq.entity.WorkOrder;
+import com.gq.excelUtils.BuildExcel;
 import com.gq.excelUtils.ExcelReader;
 import com.gq.excelUtils.ExcelWriter;
 import com.gq.excelUtils.InputText;
 import com.gq.pojo.WeekOrders;
 import com.gq.service.WeekAndMonthService;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.List;
@@ -47,16 +51,20 @@ public class Test {
         String workOrderPath = "/home/v/文档/temp/workOrderForText.txt";
         String outPath = "/home/v/文档/temp/test.xlsx";
         List<WorkOrder> workOrders = InputText.readWorkOrder(workOrderPath);
-        Workbook workbook = ExcelWriter.exportData(workOrders); // 待改进
-        String message = ExcelWriter.writerFile(workbook, outPath);
-        System.out.println(message);
+//        Workbook workbook = ExcelWriter.exportData(workbook,outPath);
+//        String message = ExcelWriter.writerFile(workbook, outPath);
+//        System.out.println(message);
+        WeekAndMonthService service = new WeekAndMonthService();
+        WeekOrders weekOrders = service.getWeekOrders(workOrders);
+        Workbook workbook = BuildExcel.buildWeeks(weekOrders);
+        ExcelWriter.writerFile(workbook,"./");
 
-        List<WorkOrder> inWorkOrders = ExcelReader.readExcel(outPath);
-        for (WorkOrder order:inWorkOrders)
-        {
-            String s = order.toString();
-            System.out.println(s);
-        }
-        System.out.println(inWorkOrders.size());
+//        List<WorkOrder> inWorkOrders = ExcelReader.readExcel(outPath);
+//        for (WorkOrder order:inWorkOrders)
+//        {
+//            String s = order.toString();
+//            System.out.println(s);
+//        }
+//        System.out.println(inWorkOrders.size());
     }
 }
