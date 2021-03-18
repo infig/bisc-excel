@@ -255,40 +255,40 @@ public class BuildExcel {
         row8.setHeight((short) (22*20));
 
         Cell cellC9 = row8.createCell(2);
-        cellC8.setCellStyle(cellStyleForCenter);
-        cellC8.setCellValue("机箱电源");
+        cellC9.setCellStyle(cellStyleForCenter);
+        cellC9.setCellValue("机箱电源");
 
         Cell cellD9 = row8.createCell(3);
-        cellD8.setCellStyle(cellStyleForCenter);
-        cellC8.setCellValue(count.getBoxAndPowerSupply());
+        cellD9.setCellStyle(cellStyleForCenter);
+        cellC9.setCellValue(count.getBoxAndPowerSupply());
 
         Cell cellE9 = row8.createCell(4);
-        cellE8.setCellStyle(cellStyle);
-        cellE8.setCellFormula("D9/$D$17");
+        cellE9.setCellStyle(cellStyle);
+        cellE9.setCellFormula("D9/$D$17");
 
         Cell cellG9 = row8.createCell(6);
-        cellG8.setCellStyle(cellStyleForCenter);
-        cellG8.setCellValue("");
+        cellG9.setCellStyle(cellStyleForCenter);
+        cellG9.setCellValue("");
 
         //  第九行
         Row row9 = sheet.createRow(9);
         row8.setHeight((short) (22*20));
 
         Cell cellC10 = row9.createCell(2);
-        cellC8.setCellStyle(cellStyleForCenter);
-        cellC8.setCellValue("移动储存设备");
+        cellC10.setCellStyle(cellStyleForCenter);
+        cellC10.setCellValue("移动储存设备");
 
         Cell cellD10 = row9.createCell(3);
-        cellD8.setCellStyle(cellStyleForCenter);
-        cellC8.setCellValue(count.getMobileStorageDevice());
+        cellD10.setCellStyle(cellStyleForCenter);
+        cellC10.setCellValue(count.getMobileStorageDevice());
 
         Cell cellE10 = row9.createCell(4);
-        cellE8.setCellStyle(cellStyle);
-        cellE8.setCellFormula("D10/$D$17");
+        cellE10.setCellStyle(cellStyle);
+        cellE10.setCellFormula("D10/$D$17");
 
         Cell cellG10 = row9.createCell(6);
-        cellG8.setCellStyle(cellStyleForCenter);
-        cellG8.setCellValue("");
+        cellG10.setCellStyle(cellStyleForCenter);
+        cellG10.setCellValue("");
 
         // 第10行
         Row row10 = sheet.createRow(10);
@@ -301,16 +301,16 @@ public class BuildExcel {
         cellB11_B14.setCellValue("桌面软件");
 
         Cell cellC11 = row10.createCell(2);
-        cellC8.setCellStyle(cellStyleForCenter);
-        cellC8.setCellValue("操作系统");
+        cellC11.setCellStyle(cellStyleForCenter);
+        cellC11.setCellValue("操作系统");
 
         Cell cellD11 = row10.createCell(3);
-        cellD8.setCellStyle(cellStyleForCenter);
-        cellC8.setCellValue(count.getTheOS());
+        cellD11.setCellStyle(cellStyleForCenter);
+        cellD11.setCellValue(count.getTheOS());
 
         Cell cellE11 = row10.createCell(4);
-        cellE8.setCellStyle(cellStyle);
-        cellE8.setCellFormula("D11/$D$17");
+        cellE11.setCellStyle(cellStyle);
+        cellE11.setCellFormula("D11/$D$17");
 
         CellRangeAddress regionF11_F14 = CellRangeAddress.valueOf("F11:F14");
         sheet.addMergedRegion(regionF11_F14);
@@ -319,28 +319,28 @@ public class BuildExcel {
         cellF11_F14.setCellFormula("sum=D11:D14");
 
         Cell cellG11 = row10.createCell(6);
-        cellG8.setCellStyle(cellStyleForCenter);
-        cellG8.setCellValue("");
+        cellG11.setCellStyle(cellStyleForCenter);
+        cellG11.setCellValue("");
 
         // 第十一行
         Row row11 = sheet.createRow(11);
         row11.setHeight((short) (22*22));
 
         Cell cellC12 = row11.createCell(2);
-        cellC8.setCellStyle(cellStyleForCenter);
-        cellC8.setCellValue("办公软件");
+        cellC12.setCellStyle(cellStyleForCenter);
+        cellC12.setCellValue("办公软件");
 
         Cell cellD12 = row11.createCell(3);
-        cellD8.setCellStyle(cellStyleForCenter);
-        cellC8.setCellValue(count.getTheOffice());
+        cellD12.setCellStyle(cellStyleForCenter);
+        cellC12.setCellValue(count.getTheOffice());
 
         Cell cellE12 = row11.createCell(4);
-        cellE8.setCellStyle(cellStyle);
-        cellE8.setCellFormula("D12/$D$17");
+        cellE12.setCellStyle(cellStyle);
+        cellE12.setCellFormula("D12/$D$17");
 
         Cell cellG12 = row11.createCell(6);
-        cellG8.setCellStyle(cellStyleForCenter);
-        cellG8.setCellValue("");
+        cellG12.setCellStyle(cellStyleForCenter);
+        cellG12.setCellValue("");
 
         Row row12 = sheet.createRow(12);
         row12.setHeight((short) (22*20));
@@ -358,28 +358,28 @@ public class BuildExcel {
         cellE13.setCellFormula("D13/$D$17");
 
         Cell cellG13 = row12.createCell(6);
-        cellG8.setCellStyle(cellStyleForCenter);
-        cellG8.setCellValue("");
+        cellG13.setCellStyle(cellStyleForCenter);
+        cellG13.setCellValue("");
 
         // 第十三行
         Row row13 = sheet.createRow(13);
         row13.setHeight((short) (22*20));
 
         Cell cellC14 = row13.createCell(2);
-        cellC13.setCellStyle(cellStyleForCenter);
-        cellC13.setCellValue("准入软件");
+        cellC14.setCellStyle(cellStyleForCenter);
+        cellC14.setCellValue("准入软件");
 
         Cell cellD14 = row13.createCell(3);
-        cellD13.setCellStyle(cellStyleForCenter);
-        cellD13.setCellValue(count.getAuthentication());
+        cellD14.setCellStyle(cellStyleForCenter);
+        cellD14.setCellValue(count.getAuthentication());
 
         Cell cellE14 = row13.createCell(4);
-        cellE13.setCellStyle(cellStyle);
-        cellE13.setCellFormula("D14/$D$17");
+        cellE14.setCellStyle(cellStyle);
+        cellE14.setCellFormula("D14/$D$17");
 
         Cell cellG14 = row13.createCell(6);
-        cellG8.setCellStyle(cellStyleForCenter);
-        cellG8.setCellValue("");
+        cellG14.setCellStyle(cellStyleForCenter);
+        cellG14.setCellValue("");
 
         Row row14 = sheet.createRow(14);
         row14.setHeight((short) (22*20));
