@@ -7,6 +7,7 @@
  *****************************/
 package com.gq.excelUtils;
 
+import com.gq.pojo.WeekOrderCount;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
@@ -18,7 +19,14 @@ public class TestCellAddress {
     public static void main(String[] args) {
         Workbook workbook = new SXSSFWorkbook();
         ExcelWriter.buildSheet(workbook, weekHead);
-        Workbook workbook1 = BuildExcel.setterWorkSheet(workbook, 0);
+        WeekOrderCount count = new WeekOrderCount();
+        count.setPrinter(2);
+        count.setTheOS(5);
+        count.setTheOffice(1);
+        count.setAuthentication(2);
+        count.setNetError(1);
+        count.setClientError(9);
+        Workbook workbook1 = BuildExcel.setterWorkSheet(workbook, 0,count);
         ExcelWriter.writerFile(workbook1,"./testCellAddress.xlsx");
     }
 }

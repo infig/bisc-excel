@@ -92,10 +92,10 @@ public class BuildWeekOrderCount {
 			} else if(classification.indexOf("准入软件")>=0)
 			{
 				orderCount.setAuthentication(orderCount.getAuthentication()+1);
-				neWeek.remove(order);
+				oneWeek.remove(order);
 				continue;
 			}else if(classification.indexOf("网线")>=0 || classification.indexOf("面板")>=0 
-					|| classification.indexOf("交换机")>=0)
+					|| classification.indexOf("交换机")>=0 || classification.indexOf("VPN业务")>=0)
 			{
 				orderCount.setNetError(orderCount.getNetError()+1);
 				oneWeek.remove(order);
