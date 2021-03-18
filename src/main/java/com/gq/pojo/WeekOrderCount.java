@@ -12,72 +12,72 @@ public class WeekOrderCount {
     /**
      * 台式机
      */
-    private int desktopComputer;
+    private int desktopComputer = 0;
 
     /**
      * 笔记本
      */
-    private int notebookComputer;
+    private int notebookComputer = 0;
 
     /**
      * 打印机
      */
-    private int printer;
+    private int printer = 0;
 
     /**
      * 扫描仪
      */
-    private int scanner;
+    private int scanner = 0;
 
     /**
      * 显示器
      */
-    private int displayDevice;
+    private int displayDevice = 0;
 
     /**
      * 鼠标键盘
      */
-    private int mouseAndKeyboard;
+    private int mouseAndKeyboard = 0;
 
     /**
      * 其他外设
      */
-    private int otherExternal;
+    private int otherExternal = 0;
 
     /**
      * 机箱电源
      */
-    private int boxAndPowerSupply;
+    private int boxAndPowerSupply = 0;
 
     /**
      * 移动储存设备
      */
-    private int mobileStorageDevice;
+    private int mobileStorageDevice = 0;
 
     /**
      * 操作系统
      */
-    private int theOS;
+    private int theOS = 0;
 
     /**
      * 办公软件
      */
-    private int theOffice;
+    private int theOffice = 0;
 
     /**
      * 其他桌面软件
      */
-    private int otherDesktopSoft;
+    private int otherDesktopSoft = 0;
 
     /**
      * 准入软件
      */
-    private int authentication;
+    private int authentication = 0;
 
     /**
      * 网线、面板、交换机等
      */
-    private int netError;
+    private int netError = 0;
 
     /**
      * 客户端操作问题

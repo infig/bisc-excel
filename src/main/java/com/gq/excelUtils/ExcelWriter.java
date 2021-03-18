@@ -81,14 +81,20 @@ public class ExcelWriter {
     public static Sheet buildSheet(Workbook workbook,String[] head) {
         List<String> cellList = Arrays.asList(head);
         Sheet sheet = workbook.createSheet();
-        CellStyle cellStyleForCenter = workbook.createCellStyle();
-        cellStyleForCenter.setAlignment(HorizontalAlignment.CENTER);
-        cellStyleForCenter.setVerticalAlignment(VerticalAlignment.CENTER);
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setFillBackgroundColor((short) 2);
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        cellStyle.setBorderBottom(BorderStyle.HAIR);
+        cellStyle.setBorderLeft(BorderStyle.HAIR);
+        cellStyle.setBorderRight(BorderStyle.HAIR);
+        cellStyle.setBorderTop(BorderStyle.HAIR);
         Row row = sheet.createRow(0);
+        sheet.getRow(0).setHeight((short) (22*20));
         for (int i = 0; i<cellList.size(); i++)
         {
             Cell cell = row.createCell(i);
-            cell.setCellStyle(cellStyleForCenter);
+            cell.setCellStyle(cellStyle);
             cell.setCellValue(String.valueOf(cellList.get(i)));
         }
         return sheet;

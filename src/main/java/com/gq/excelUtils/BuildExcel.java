@@ -16,6 +16,9 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataBarFormatting;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.ss.formula.eval.FunctionEval;
+import org.apache.poi.ss.formula.functions.FactDouble;
+import org.apache.poi.ss.formula.functions.Function;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -50,6 +53,8 @@ public class BuildExcel {
 
     public static Workbook setterWorkSheet(Workbook workbook, int sheetNum, WeekOrderCount count)
     {
+        FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+
         Sheet sheet = workbook.getSheetAt(sheetNum);
         sheet.setColumnWidth(0,12*256);
         sheet.setColumnWidth(1,8*256);
@@ -58,17 +63,16 @@ public class BuildExcel {
         sheet.setColumnWidth(4,8*256);
         sheet.setColumnWidth(5,8*256);
         sheet.setColumnWidth(6,8*256);
-        sheet.getRow(0).setHeight((short) (22*20));
 //        sheet.setDefaultRowHeightInPoints(22);
 
         // 剧中样式
         CellStyle cellStyleForCenter = workbook.createCellStyle();
         cellStyleForCenter.setAlignment(HorizontalAlignment.CENTER);
         cellStyleForCenter.setVerticalAlignment(VerticalAlignment.CENTER);
-        cellStyleForCenter.setBorderBottom(BorderStyle.DASH_DOT);
-        cellStyleForCenter.setBorderLeft(BorderStyle.DASH_DOT);
-        cellStyleForCenter.setBorderRight(BorderStyle.DASH_DOT);
-        cellStyleForCenter.setBorderTop(BorderStyle.DASH_DOT);
+        cellStyleForCenter.setBorderBottom(BorderStyle.HAIR);
+        cellStyleForCenter.setBorderLeft(BorderStyle.HAIR);
+        cellStyleForCenter.setBorderRight(BorderStyle.HAIR);
+        cellStyleForCenter.setBorderTop(BorderStyle.HAIR);
 
         //-------------第一行------------------
         Row row1 = sheet.createRow(1);
@@ -101,18 +105,25 @@ public class BuildExcel {
         CellStyle cellStyle = workbook.createCellStyle();
         DataFormat dataFormat = workbook.createDataFormat();
         cellStyle.setDataFormat(dataFormat.getFormat("0.00%"));
-        cellStyleForCenter.setAlignment(HorizontalAlignment.CENTER);
-        cellStyleForCenter.setVerticalAlignment(VerticalAlignment.CENTER);
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        cellStyle.setBorderBottom(BorderStyle.HAIR);
+        cellStyle.setBorderLeft(BorderStyle.HAIR);
+        cellStyle.setBorderRight(BorderStyle.HAIR);
+        cellStyle.setBorderTop(BorderStyle.HAIR);
+
 
         Cell cellE2 = row1.createCell(4);
         cellE2.setCellStyle(cellStyle);
-        cellE2.setCellFormula("=D2/$D$17");
+        cellE2.setCellFormula("D2/$D$17");
+        evaluator.evaluateFormulaCell(cellE2);
 
         CellRangeAddress regionF2_F3 = CellRangeAddress.valueOf("F2:F3");
         sheet.addMergedRegion(regionF2_F3);
         Cell cellF1_F2 = row1.createCell(5);
         cellF1_F2.setCellStyle(cellStyleForCenter);
-        cellF1_F2.setCellFormula("=sum(D2:D3)");
+        cellF1_F2.setCellFormula("SUM(D2:D3)");
+		evaluator.evaluateFormulaCell(cellF1_F2);
 
         Cell cellG2 = row1.createCell(6);
         cellG2.setCellStyle(cellStyleForCenter);
@@ -132,7 +143,8 @@ public class BuildExcel {
 
         Cell cellE3 = row2.createCell(4);
         cellE3.setCellStyle(cellStyle);
-        cellE3.setCellFormula("=D3/$D$17");
+        cellE3.setCellFormula("D3/$D$17");
+		evaluator.evaluateFormulaCell(cellE3);
 
         Cell cellG3 = row2.createCell(6);
         cellG3.setCellStyle(cellStyleForCenter);
@@ -159,12 +171,14 @@ public class BuildExcel {
         Cell cellE4 = row3.createCell(4);
         cellE4.setCellStyle(cellStyle);
         cellE4.setCellFormula("D4/$D$17");
+		evaluator.evaluateFormulaCell(cellE4);
 
         CellRangeAddress regionF4_F10 = CellRangeAddress.valueOf("F4:F10");
         sheet.addMergedRegion(regionF4_F10);
         Cell cellF4_F10 = row3.createCell(5);
         cellF4_F10.setCellStyle(cellStyleForCenter);
-        cellF4_F10.setCellFormula("sum=(D4:D10");
+        cellF4_F10.setCellFormula("SUM(D4:D10)");
+		evaluator.evaluateFormulaCell(cellF4_F10);
 
         Cell cellG4 = row3.createCell(6);
         cellG4.setCellStyle(cellStyleForCenter);
@@ -184,7 +198,8 @@ public class BuildExcel {
 
         Cell cellE5 = row4.createCell(4);
         cellE5.setCellStyle(cellStyle);
-        cellE5.setCellFormula("=D5/$D$17");
+        cellE5.setCellFormula("D5/$D$17");
+		evaluator.evaluateFormulaCell(cellE5);
 
         Cell cellG5 = row4.createCell(6);
         cellG5.setCellStyle(cellStyleForCenter);
@@ -205,6 +220,7 @@ public class BuildExcel {
         Cell cellE6 = row5.createCell(4);
         cellE6.setCellStyle(cellStyle);
         cellE6.setCellFormula("D6/$D$17");
+		evaluator.evaluateFormulaCell(cellE6);
 
         Cell cellG6 = row5.createCell(6);
         cellG6.setCellStyle(cellStyleForCenter);
@@ -225,6 +241,7 @@ public class BuildExcel {
         Cell cellE7 = row6.createCell(4);
         cellE7.setCellStyle(cellStyle);
         cellE7.setCellFormula("D7/$D$17");
+		evaluator.evaluateFormulaCell(cellE7);
 
         Cell cellG7 = row6.createCell(6);
         cellG7.setCellStyle(cellStyleForCenter);
@@ -232,7 +249,7 @@ public class BuildExcel {
 
         //  第七行
         Row row7 = sheet.createRow(7);
-        row7.setHeight((short) 22.20);
+        row7.setHeight((short) (22*20));
 
         Cell cellC8 = row7.createCell(2);
         cellC8.setCellStyle(cellStyleForCenter);
@@ -245,6 +262,7 @@ public class BuildExcel {
         Cell cellE8 = row7.createCell(4);
         cellE8.setCellStyle(cellStyle);
         cellE8.setCellFormula("D8/$D$17");
+		evaluator.evaluateFormulaCell(cellE8);
 
         Cell cellG8 = row7.createCell(6);
         cellG8.setCellStyle(cellStyleForCenter);
@@ -265,6 +283,7 @@ public class BuildExcel {
         Cell cellE9 = row8.createCell(4);
         cellE9.setCellStyle(cellStyle);
         cellE9.setCellFormula("D9/$D$17");
+		evaluator.evaluateFormulaCell(cellE9);
 
         Cell cellG9 = row8.createCell(6);
         cellG9.setCellStyle(cellStyleForCenter);
@@ -285,6 +304,7 @@ public class BuildExcel {
         Cell cellE10 = row9.createCell(4);
         cellE10.setCellStyle(cellStyle);
         cellE10.setCellFormula("D10/$D$17");
+		evaluator.evaluateFormulaCell(cellE10);
 
         Cell cellG10 = row9.createCell(6);
         cellG10.setCellStyle(cellStyleForCenter);
@@ -311,12 +331,14 @@ public class BuildExcel {
         Cell cellE11 = row10.createCell(4);
         cellE11.setCellStyle(cellStyle);
         cellE11.setCellFormula("D11/$D$17");
+		evaluator.evaluateFormulaCell(cellE11);
 
         CellRangeAddress regionF11_F14 = CellRangeAddress.valueOf("F11:F14");
         sheet.addMergedRegion(regionF11_F14);
         Cell cellF11_F14 = row10.createCell(5);
         cellF11_F14.setCellStyle(cellStyleForCenter);
-        cellF11_F14.setCellFormula("sum=D11:D14");
+        cellF11_F14.setCellFormula("SUM(D11:D14)");
+		evaluator.evaluateFormulaCell(cellF11_F14);
 
         Cell cellG11 = row10.createCell(6);
         cellG11.setCellStyle(cellStyleForCenter);
@@ -337,6 +359,7 @@ public class BuildExcel {
         Cell cellE12 = row11.createCell(4);
         cellE12.setCellStyle(cellStyle);
         cellE12.setCellFormula("D12/$D$17");
+		evaluator.evaluateFormulaCell(cellE12);
 
         Cell cellG12 = row11.createCell(6);
         cellG12.setCellStyle(cellStyleForCenter);
@@ -356,6 +379,7 @@ public class BuildExcel {
         Cell cellE13 = row12.createCell(4);
         cellE13.setCellStyle(cellStyleForCenter);
         cellE13.setCellFormula("D13/$D$17");
+		evaluator.evaluateFormulaCell(cellE13);
 
         Cell cellG13 = row12.createCell(6);
         cellG13.setCellStyle(cellStyleForCenter);
@@ -376,6 +400,7 @@ public class BuildExcel {
         Cell cellE14 = row13.createCell(4);
         cellE14.setCellStyle(cellStyle);
         cellE14.setCellFormula("D14/$D$17");
+		evaluator.evaluateFormulaCell(cellE14);
 
         Cell cellG14 = row13.createCell(6);
         cellG14.setCellStyle(cellStyleForCenter);
@@ -399,10 +424,12 @@ public class BuildExcel {
         Cell cellE15 = row14.createCell(4);
         cellE15.setCellStyle(cellStyle);
         cellE15.setCellFormula("D15/$D$17");
+		evaluator.evaluateFormulaCell(cellE15);
 
         Cell cellF15 = row14.createCell(5);
         cellF15.setCellStyle(cellStyleForCenter);
-        cellF15.setCellFormula("sum=(D15)");
+        cellF15.setCellFormula("SUM(D15)");
+		evaluator.evaluateFormulaCell(cellF15);
 
         Cell cellG15 = row14.createCell(6);
         cellG15.setCellStyle(cellStyleForCenter);
@@ -430,10 +457,12 @@ public class BuildExcel {
         Cell cellE16 = row15.createCell(4);
         cellE16.setCellStyle(cellStyle);
         cellE16.setCellFormula("D16/$D$17");
+		evaluator.evaluateFormulaCell(cellE16);
 
         Cell cellF16 = row15.createCell(5);
         cellF16.setCellStyle(cellStyleForCenter);
-        cellF16.setCellFormula("sum=(D16");
+        cellF16.setCellFormula("SUM(D16)");
+		evaluator.evaluateFormulaCell(cellF16);
 
         Cell cellG16 = row15.createCell(6);
         cellG16.setCellStyle(cellStyleForCenter);
@@ -456,15 +485,18 @@ public class BuildExcel {
 
         Cell cellD17 = row16.createCell(3);
         cellD17.setCellStyle(cellStyleForCenter);
-        cellD17.setCellFormula("=sum(D2:D16");
+        cellD17.setCellFormula("SUM(D2:D16)");
+        evaluator.evaluateFormulaCell(cellD17);
 
         Cell cellE17 = row16.createCell(4);
         cellE17.setCellStyle(cellStyle);
-        cellE17.setCellFormula("=D17/$D$17");
+        cellE17.setCellFormula("D17/$D$17");
+		evaluator.evaluateFormulaCell(cellE17);
 
         Cell cellF17 = row16.createCell(5);
         cellF17.setCellStyle(cellStyleForCenter);
-        cellF17.setCellFormula("=sum(F2:F16)");
+        cellF17.setCellFormula("SUM(D2:D16)");
+        evaluator.evaluateFormulaCell(cellF17);
 
         Cell cellG17 = row16.createCell(6);
         cellG17.setCellStyle(cellStyleForCenter);
