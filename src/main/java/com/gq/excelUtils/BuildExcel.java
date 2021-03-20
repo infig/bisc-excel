@@ -9,23 +9,15 @@ package com.gq.excelUtils;
 
 import com.gq.entity.WorkOrder;
 import com.gq.pojo.WeekOrderCount;
-import com.gq.pojo.WeekOrders;
+import com.gq.utils.BuildWeekOrderCount;
 import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFDataBarFormatting;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.ss.formula.eval.FunctionEval;
-import org.apache.poi.ss.formula.functions.FactDouble;
-import org.apache.poi.ss.formula.functions.Function;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BuildExcel {
 
@@ -43,15 +35,22 @@ public class BuildExcel {
             "事件大类","事件子类","项目","事件数量","占比","合计","备注"
     };
 
-    public static Workbook buildWeeks(WeekOrders weekOrders)
+    private static String[] tempWeek = {"第一周","第二周","第三周","第四周"};
+
+    public static Workbook buildWeeks(Map<Integer, List<WorkOrder>> weekMap)
     {
+        BuildWeekOrderCount count = new BuildWeekOrderCount();
+        Map<Integer, WeekOrderCount> countMap = count.getAllCount(weekMap);
         Workbook workbook = new SXSSFWorkbook();
-        Sheet sheet = ExcelWriter.buildSheet(workbook, weekHead);
-//        return setterWorkSheet(workbook,0);
-        return null;
+        for(int i = 1; i<weekMap.size(); i++)
+        {
+            ExcelWriter.buildSheet(workbook, weekHead, tempWeek[i-1]);
+            setterWorkSheet(workbook,i-1,countMap.get(i));
+        }
+        return workbook;
     }
 
-    public static Workbook setterWorkSheet(Workbook workbook, int sheetNum, WeekOrderCount count)
+    private static Workbook setterWorkSheet(Workbook workbook, int sheetNum, WeekOrderCount count)
     {
         FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
 
@@ -82,8 +81,17 @@ public class BuildExcel {
         CellRangeAddress regionA2_A15 = CellRangeAddress.valueOf("A2:A15");
         sheet.addMergedRegion(regionA2_A15);
 
+        CellStyle cellStyleForTOP = workbook.createCellStyle();
+        cellStyleForTOP.setFillPattern(FillPatternType.forInt(17));
+        cellStyleForTOP.setAlignment(HorizontalAlignment.CENTER);
+        cellStyleForTOP.setVerticalAlignment(VerticalAlignment.CENTER);
+        cellStyleForTOP.setBorderBottom(BorderStyle.HAIR);
+        cellStyleForTOP.setBorderLeft(BorderStyle.HAIR);
+        cellStyleForTOP.setBorderRight(BorderStyle.HAIR);
+        cellStyleForTOP.setBorderTop(BorderStyle.HAIR);
+
         Cell cellA2_A15 = row1.createCell(0);
-        cellA2_A15.setCellStyle(cellStyleForCenter);
+        cellA2_A15.setCellStyle(cellStyleForTOP);
         cellA2_A15.setCellValue("桌面终端");
 
 //        CellRangeAddress region1 = new CellRangeAddress(1,2,1,1);
@@ -236,7 +244,7 @@ public class BuildExcel {
 
         Cell cellD7 = row6.createCell(3);
         cellD7.setCellStyle(cellStyleForCenter);
-        cellC7.setCellValue(count.getMouseAndKeyboard());
+        cellD7.setCellValue(count.getMouseAndKeyboard());
 
         Cell cellE7 = row6.createCell(4);
         cellE7.setCellStyle(cellStyle);
@@ -257,7 +265,7 @@ public class BuildExcel {
 
         Cell cellD8 = row7.createCell(3);
         cellD8.setCellStyle(cellStyleForCenter);
-        cellC8.setCellValue(count.getOtherExternal());
+        cellD8.setCellValue(count.getOtherExternal());
 
         Cell cellE8 = row7.createCell(4);
         cellE8.setCellStyle(cellStyle);
@@ -278,7 +286,7 @@ public class BuildExcel {
 
         Cell cellD9 = row8.createCell(3);
         cellD9.setCellStyle(cellStyleForCenter);
-        cellC9.setCellValue(count.getBoxAndPowerSupply());
+        cellD9.setCellValue(count.getBoxAndPowerSupply());
 
         Cell cellE9 = row8.createCell(4);
         cellE9.setCellStyle(cellStyle);
@@ -299,7 +307,7 @@ public class BuildExcel {
 
         Cell cellD10 = row9.createCell(3);
         cellD10.setCellStyle(cellStyleForCenter);
-        cellC10.setCellValue(count.getMobileStorageDevice());
+        cellD10.setCellValue(count.getMobileStorageDevice());
 
         Cell cellE10 = row9.createCell(4);
         cellE10.setCellStyle(cellStyle);
@@ -354,7 +362,7 @@ public class BuildExcel {
 
         Cell cellD12 = row11.createCell(3);
         cellD12.setCellStyle(cellStyleForCenter);
-        cellC12.setCellValue(count.getTheOffice());
+        cellD12.setCellValue(count.getTheOffice());
 
         Cell cellE12 = row11.createCell(4);
         cellE12.setCellStyle(cellStyle);
@@ -377,7 +385,7 @@ public class BuildExcel {
         cellD13.setCellValue(count.getOtherDesktopSoft());
 
         Cell cellE13 = row12.createCell(4);
-        cellE13.setCellStyle(cellStyleForCenter);
+        cellE13.setCellStyle(cellStyle);
         cellE13.setCellFormula("D13/$D$17");
 		evaluator.evaluateFormulaCell(cellE13);
 
@@ -439,7 +447,7 @@ public class BuildExcel {
         row15.setHeight((short) (22*20));
 
         Cell cellA16 = row15.createCell(0);
-        cellA16.setCellStyle(cellStyleForCenter);
+        cellA16.setCellStyle(cellStyleForTOP);
         cellA16.setCellValue("南网应用系统");
 
         Cell cellB16 = row15.createCell(1);

@@ -9,17 +9,13 @@ package com.gq;
 
 import com.gq.entity.WorkOrder;
 import com.gq.excelUtils.BuildExcel;
-import com.gq.excelUtils.ExcelReader;
 import com.gq.excelUtils.ExcelWriter;
 import com.gq.excelUtils.InputText;
-import com.gq.pojo.WeekOrders;
 import com.gq.service.WeekAndMonthService;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.List;
+import java.util.Map;
 
 public class Test {
     public static void main(String[] args) {
@@ -55,7 +51,7 @@ public class Test {
 //        String message = ExcelWriter.writerFile(workbook, outPath);
 //        System.out.println(message);
         WeekAndMonthService service = new WeekAndMonthService();
-        WeekOrders weekOrders = service.getWeekOrders(workOrders);
+        Map<Integer, List<WorkOrder>> weekOrders = service.getWeekOrders(workOrders);
         Workbook workbook = BuildExcel.buildWeeks(weekOrders);
         ExcelWriter.writerFile(workbook,"./");
 

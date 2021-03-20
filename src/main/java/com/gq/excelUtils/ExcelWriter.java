@@ -7,8 +7,6 @@
  *****************************/
 package com.gq.excelUtils;
 
-import com.gq.entity.OrderUser;
-import com.gq.entity.TheMac;
 import com.gq.entity.WorkOrder;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -78,11 +76,12 @@ public class ExcelWriter {
      * @param head 表头
      * @return
      */
-    public static Sheet buildSheet(Workbook workbook,String[] head) {
+    public static Sheet buildSheet(Workbook workbook,String[] head,String sheetName) {
         List<String> cellList = Arrays.asList(head);
-        Sheet sheet = workbook.createSheet();
+        Sheet sheet = workbook.createSheet(sheetName);
         CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setFillBackgroundColor((short) 2);
+//        cellStyle.setFillBackgroundColor(HSSFColor.HSSFColorPredefined.DARK_GREEN.getIndex2());
+        cellStyle.setFillPattern(FillPatternType.forInt(17));
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
         cellStyle.setBorderBottom(BorderStyle.HAIR);

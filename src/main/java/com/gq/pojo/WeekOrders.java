@@ -11,6 +11,7 @@ import com.gq.entity.WorkOrder;
 
 import java.util.List;
 
+@Deprecated
 public class WeekOrders {
     private List<WorkOrder> firstWeek;
     private List<WorkOrder> secondWeek;

@@ -8,19 +8,16 @@
 package com.gq.service;
 
 import com.gq.entity.WorkOrder;
-import com.gq.pojo.WeekOrders;
 import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class WeekAndMonthService {
 
      private static final Logger LOG = LoggerFactory.getLogger(WeekAndMonthService.class);
 
-    public WeekOrders getWeekOrders(List<WorkOrder> list)
+    public Map<Integer, List<WorkOrder>> getWeekOrders(List<WorkOrder> list)
     {
         List<WorkOrder> myOrders = new ArrayList<>();
             for (WorkOrder order : list)
@@ -47,15 +44,25 @@ public class WeekAndMonthService {
 
         for (WorkOrder myOrder: myOrders)
         {
-            if (myOrder.getCreateDate().before(new Date("2021/2/8")))
+            if (myOrder.getCreateDate().before(new Date("2021/2/8"))) {
                 firstWeek.add(myOrder);
-            if (myOrder.getCreateDate().before(new Date("2021/2/15")))
+            }
+            if (myOrder.getCreateDate().before(new Date("2021/2/15"))) {
                 secondWeek.add(myOrder);
-            if (myOrder.getCreateDate().before(new Date("2021/2/22")))
+            }
+            if (myOrder.getCreateDate().before(new Date("2021/2/22"))) {
                 thirdWeek.add(myOrder);
-            if (myOrder.getCreateDate().after(new Date("2021/2/22")))
+            }
+            if (myOrder.getCreateDate().after(new Date("2021/2/22"))) {
                 fourthWeek.add(myOrder);
+            }
         }
-        return new WeekOrders(firstWeek,secondWeek,thirdWeek,fourthWeek);
+
+        Map<Integer,List<WorkOrder>> weekMap = new HashMap<>();
+        weekMap.put(1,firstWeek);
+        weekMap.put(2,secondWeek);
+        weekMap.put(3,thirdWeek);
+        weekMap.put(4,fourthWeek);
+        return weekMap;
     }
 }
