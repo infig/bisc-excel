@@ -13,7 +13,10 @@ import com.gq.excelUtils.ExcelReader;
 import com.gq.excelUtils.ExcelWriter;
 import com.gq.service.WeekAndMonthService;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +25,10 @@ import java.util.Scanner;
 
 public class MainFunction{
 
+    private static final Logger LOG = LoggerFactory.getLogger(MainFunction.class);
+
     public static void main(String[] args) {
+        SimpleDateFormat sdf = new SimpleDateFormat();
         WeekAndMonthService service = new WeekAndMonthService();
         Date[] weekDate = new Date[3];
         Scanner scanner = new Scanner(System.in);
@@ -35,11 +41,18 @@ public class MainFunction{
         List<WorkOrder> workOrders = ExcelReader.readExcel(inExcelPath);
 
 
-        for (int i = 0; i < weekDate.length; i++) {
+        try {
+            for (int i = 0; i < weekDate.length; i++) {
             System.out.print("\n输入第" + (i+1) +"周最后日期（格式：yyyy/MM/dd):");
             String tempDate = scanner.next();
-            Date theDate = new Date(tempDate);
-            weekDate[i] = theDate;
+            Date theDate = null;
+                theDate = sdf.parse(tempDate);
+                weekDate[i] = theDate;
+            }
+//            Date theDate = new Date(tempDate);
+        } catch (ParseException e) {
+//            e.printStackTrace();
+            LOG.info(e.getMessage());
         }
 
         Map<Integer, List<WorkOrder>> weekOrders = service.getWeekOrders(workOrders, weekDate);
