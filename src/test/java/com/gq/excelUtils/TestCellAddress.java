@@ -13,6 +13,7 @@ import com.gq.service.WeekAndMonthService;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,8 @@ public class TestCellAddress {
         WeekAndMonthService service = new WeekAndMonthService();
         String workOrderPath = "/home/v/文档/temp/workOrderForText.txt";
         List<WorkOrder> workOrders = InputText.readWorkOrder(workOrderPath);
-        Map<Integer, List<WorkOrder>> weekOrders = service.getWeekOrders(workOrders);
+        Date[] theDate = new Date[3];
+        Map<Integer, List<WorkOrder>> weekOrders = service.getWeekOrders(workOrders,theDate);
         Workbook workbook = BuildExcel.buildWeeks(weekOrders);
         ExcelWriter.writerFile(workbook,"./testBuildWeek.xlsx");
     }
@@ -42,7 +44,8 @@ public class TestCellAddress {
         WeekAndMonthService service = new WeekAndMonthService();
         String workOrderPath = "/home/v/文档/temp/workOrderForText.txt";
         List<WorkOrder> workOrders = InputText.readWorkOrder(workOrderPath);
-        Map<Integer, List<WorkOrder>> weekOrders = service.getWeekOrders(workOrders);
+        Date[] theDate = new Date[3];
+        Map<Integer, List<WorkOrder>> weekOrders = service.getWeekOrders(workOrders,theDate);
         for(WorkOrder order:weekOrders.get(1))
         {
             String s = order.toString();

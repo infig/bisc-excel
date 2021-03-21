@@ -5,7 +5,7 @@
  * Time: 下午5:14
  * Description: 
  *****************************/
-package com.gq;
+package com.gq.excelUtils;
 
 import com.gq.entity.WorkOrder;
 import com.gq.excelUtils.BuildExcel;
@@ -51,9 +51,9 @@ public class Test {
 //        String message = ExcelWriter.writerFile(workbook, outPath);
 //        System.out.println(message);
         WeekAndMonthService service = new WeekAndMonthService();
-        Map<Integer, List<WorkOrder>> weekOrders = service.getWeekOrders(workOrders);
-        Workbook workbook = BuildExcel.buildWeeks(weekOrders);
-        ExcelWriter.writerFile(workbook,"./");
+//        Map<Integer, List<WorkOrder>> weekOrders = service.getWeekOrders(workOrders);
+//        Workbook workbook = BuildExcel.buildWeeks(weekOrders);
+//        ExcelWriter.writerFile(workbook,"./");
 
 //        List<WorkOrder> inWorkOrders = ExcelReader.readExcel(outPath);
 //        for (WorkOrder order:inWorkOrders)

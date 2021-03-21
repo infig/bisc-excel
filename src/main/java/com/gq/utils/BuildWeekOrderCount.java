@@ -20,7 +20,7 @@ public class BuildWeekOrderCount {
     public Map<Integer,WeekOrderCount> getAllCount(Map<Integer,List<WorkOrder>> weekMap)
     {
         Map<Integer,WeekOrderCount> result = new HashMap<>();
-        for (int i = 1; i<weekMap.size(); i++)
+        for (int i = 0; i<weekMap.size(); i++)
         {
             WeekOrderCount oneWeek = getOneWeek(weekMap.get(i));
             result.put(i,oneWeek);

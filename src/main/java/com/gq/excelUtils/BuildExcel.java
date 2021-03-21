@@ -10,11 +10,11 @@ package com.gq.excelUtils;
 import com.gq.entity.WorkOrder;
 import com.gq.pojo.WeekOrderCount;
 import com.gq.utils.BuildWeekOrderCount;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -42,10 +42,10 @@ public class BuildExcel {
         BuildWeekOrderCount count = new BuildWeekOrderCount();
         Map<Integer, WeekOrderCount> countMap = count.getAllCount(weekMap);
         Workbook workbook = new SXSSFWorkbook();
-        for(int i = 1; i<weekMap.size(); i++)
+        for(int i = 0; i<weekMap.size(); i++)
         {
-            ExcelWriter.buildSheet(workbook, weekHead, tempWeek[i-1]);
-            setterWorkSheet(workbook,i-1,countMap.get(i));
+            ExcelWriter.buildSheet(workbook, weekHead, tempWeek[i]);
+            setterWorkSheet(workbook,i,countMap.get(i));
         }
         return workbook;
     }

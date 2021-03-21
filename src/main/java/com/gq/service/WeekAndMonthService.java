@@ -8,8 +8,8 @@
 package com.gq.service;
 
 import com.gq.entity.WorkOrder;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -17,12 +17,12 @@ public class WeekAndMonthService {
 
      private static final Logger LOG = LoggerFactory.getLogger(WeekAndMonthService.class);
 
-    public Map<Integer, List<WorkOrder>> getWeekOrders(List<WorkOrder> list)
+    public Map<Integer, List<WorkOrder>> getWeekOrders(List<WorkOrder> list,Date[] weekDate)
     {
         List<WorkOrder> myOrders = new ArrayList<>();
             for (WorkOrder order : list)
             {
-                int index = 0;
+//                int index = 0;
                 try {
                     if (order.getSolution().indexOf("李云海")>=0)
                     {
@@ -31,10 +31,10 @@ public class WeekAndMonthService {
                         else
                             continue;
                     }
-                    index++;
+//                    index++;
                 }catch (NullPointerException e){
                     LOG.error(e.getMessage());
-                    LOG.error(String.valueOf(index));
+//                    LOG.error(String.valueOf(index));
                 }
             }
         List<WorkOrder> firstWeek = new ArrayList<>();
@@ -44,25 +44,27 @@ public class WeekAndMonthService {
 
         for (WorkOrder myOrder: myOrders)
         {
-            if (myOrder.getCreateDate().before(new Date("2021/2/8"))) {
+            if (myOrder.getCreateDate().before(weekDate[0])) {
                 firstWeek.add(myOrder);
             }
-            if (myOrder.getCreateDate().before(new Date("2021/2/15"))) {
+            if (myOrder.getCreateDate().before(weekDate[1]) &&
+                    myOrder.getCreateDate().after(weekDate[0])) {
                 secondWeek.add(myOrder);
             }
-            if (myOrder.getCreateDate().before(new Date("2021/2/22"))) {
+            if (myOrder.getCreateDate().before(weekDate[2]) &&
+                    myOrder.getCreateDate().after(weekDate[1])) {
                 thirdWeek.add(myOrder);
             }
-            if (myOrder.getCreateDate().after(new Date("2021/2/22"))) {
+            if (myOrder.getCreateDate().after(weekDate[2])) {
                 fourthWeek.add(myOrder);
             }
         }
 
         Map<Integer,List<WorkOrder>> weekMap = new HashMap<>();
-        weekMap.put(1,firstWeek);
-        weekMap.put(2,secondWeek);
-        weekMap.put(3,thirdWeek);
-        weekMap.put(4,fourthWeek);
+        weekMap.put(0,firstWeek);
+        weekMap.put(1,secondWeek);
+        weekMap.put(2,thirdWeek);
+        weekMap.put(3,fourthWeek);
         return weekMap;
     }
 }
