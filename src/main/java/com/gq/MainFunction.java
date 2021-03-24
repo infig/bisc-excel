@@ -7,6 +7,7 @@
  *****************************/
 package com.gq;
 
+import com.gq.config.InitLogRecord;
 import com.gq.entity.WorkOrder;
 import com.gq.excelUtils.BuildExcel;
 import com.gq.excelUtils.ExcelReader;
@@ -28,7 +29,8 @@ public class MainFunction{
     private static final Logger LOG = LoggerFactory.getLogger(MainFunction.class);
 
     public static void main(String[] args) {
-        SimpleDateFormat sdf = new SimpleDateFormat();
+//        InitLogRecord.initLog();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         WeekAndMonthService service = new WeekAndMonthService();
         Date[] weekDate = new Date[3];
         Scanner scanner = new Scanner(System.in);
@@ -45,16 +47,16 @@ public class MainFunction{
             for (int i = 0; i < weekDate.length; i++) {
             System.out.print("\n输入第" + (i+1) +"周最后日期（格式：yyyy/MM/dd):");
             String tempDate = scanner.next();
-            Date theDate = null;
-                theDate = sdf.parse(tempDate);
+                Date theDate = sdf.parse(tempDate);
                 weekDate[i] = theDate;
             }
 //            Date theDate = new Date(tempDate);
         } catch (ParseException e) {
-//            e.printStackTrace();
+            e.printStackTrace();
             LOG.info(e.getMessage());
         }
 
+        assert workOrders != null : "workOrders is null";
         Map<Integer, List<WorkOrder>> weekOrders = service.getWeekOrders(workOrders, weekDate);
         Workbook workbook = BuildExcel.buildWeeks(weekOrders);
 

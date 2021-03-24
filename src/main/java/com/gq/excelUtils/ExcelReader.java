@@ -44,7 +44,7 @@ public class ExcelReader {
 
         else if (fileType.equalsIgnoreCase(XLSX))
             return new XSSFWorkbook(inputStream);
-        LOG.warn("创建workbook失败");
+        LOG.warn("com.gq.ExcelReader.getWorkBook:创建workbook失败");
         return null;
     }
 
@@ -126,6 +126,7 @@ public class ExcelReader {
                     continue;
 
                 WorkOrder workOrder = convertRowData(row);
+                LOG.info("构建Excel行");
                 if (workOrder == null)
                 {
                     LOG.warn("第" + row.getRowNum() + "行不合法，已忽略");
@@ -140,7 +141,10 @@ public class ExcelReader {
     public static String convertCellValueToString(Cell cell)
     {
         if (cell == null)
+        {
+            LOG.warn("com.gq.ExcelReader.convertCellValueToString 'cell null'");
             return null;
+        }
 
         String resultValue = null;
 
@@ -170,10 +174,59 @@ public class ExcelReader {
         return resultValue;
     }
 
+    private static String formatDate(String theErrorDate)
+    {
+        String[] split = theErrorDate.split("-");
+        String errorString = split[1];
+        switch (errorString)
+        {
+            case "一月":
+                split[1] = String.valueOf(1);
+                break;
+            case "二月":
+                split[1] = String.valueOf(2);
+                break;
+            case "三月":
+                split[1] = String.valueOf(3);
+                break;
+            case "四月":
+                split[1] = String.valueOf(4);
+                break;
+            case "五月":
+                split[1] = String.valueOf(5);
+                break;
+            case "六月":
+                split[1] = String.valueOf(6);
+                break;
+            case "七月":
+                split[1] = String.valueOf(7);
+                break;
+            case "八月":
+                split[1] = String.valueOf(8);
+                break;
+            case "九月":
+                split[1] = String.valueOf(9);
+                break;
+            case "十月":
+                split[1] = String.valueOf(10);
+                break;
+            case "十一月":
+                split[1] = String.valueOf(11);
+                break;
+            case "十二月":
+                split[1] = String.valueOf(12);
+                break;
+            default:
+                LOG.info("format date");
+                break;
+        }
+        String result =  split[2] + "-" + split[1] + "-" + split[0];
+        return result;
+    }
 
     public static WorkOrder convertRowData(Row row)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         WorkOrder result = new WorkOrder();
 
         Cell cell;
@@ -185,14 +238,17 @@ public class ExcelReader {
             result.setId(id);
 
         cell = row.getCell(cellNum++);
-        String createDate= convertCellValueToString(cell);
-        if (createDate != null && !createDate.equals(""))
+        String cellDate = cell.toString();
+//        String cellDate = convertCellValueToString(cell);
+        if (cellDate != null && !cellDate.equals(""))
         {
 
             try {
+                String createDate = formatDate(cellDate);
+                LOG.info("构建转换时间");
                 result.setCreateDate(sdf.parse(createDate));
             } catch (ParseException e) {
-                e.printStackTrace();
+				LOG.warn(e.getMessage());
                 LOG.warn("时间转换错误");
             }
         }
@@ -219,12 +275,15 @@ public class ExcelReader {
             result.setPhone(phone);
 
         cell = row.getCell(cellNum++);
-        String callInTime = convertCellValueToString(cell);
-        if(callInTime != null && !callInTime.equals("")) {
+//        String callInTime = convertCellValueToString(cell);
+        String cellCallInTime = cell.toString();
+        if(cellCallInTime != null && !cellCallInTime.equals("")) {
             try {
+                String callInTime = formatDate(cellCallInTime);
+                LOG.info("构建转换时间");
                 result.setCallInTime(sdf.parse(callInTime));
             } catch (ParseException e) {
-                e.printStackTrace();
+				LOG.warn(e.getMessage());
                 LOG.warn("时间转换错误");
             }
         }
@@ -236,12 +295,15 @@ public class ExcelReader {
 
 
         cell = row.getCell(cellNum++);
-        String acceptanceTime = convertCellValueToString(cell);
-		if (acceptanceTime != null && !acceptanceTime.equals("")) {
+//        String acceptanceTime = convertCellValueToString(cell);
+        String cellAcceptanceTime = cell.toString();
+        if (cellAcceptanceTime != null && !cellAcceptanceTime.equals("")) {
 			try {
-				result.setAcceptanceTime(sdf.parse(acceptanceTime));
+                String acceptanceTime = formatDate(cellAcceptanceTime);
+                LOG.info("构建转换时间");
+                result.setAcceptanceTime(sdf.parse(acceptanceTime));
 			} catch (ParseException e) {
-				e.printStackTrace();
+				LOG.warn(e.getMessage());
 				LOG.warn("时间转换错误");
 			}
 		}
@@ -282,13 +344,16 @@ public class ExcelReader {
 			result.setSolver(solver);
 
         cell = row.getCell(cellNum++);
-        String planTime = convertCellValueToString(cell);
-		if(planTime != null && !planTime.equals(""))
+//        String planTime = convertCellValueToString(cell);
+        String cellPlanTime = cell.toString();
+        if(cellPlanTime != null && ! cellPlanTime.equals(""))
 		{
 			try {
-				result.setPlanTime(sdf.parse(planTime));
+                String planTime = formatDate(cellPlanTime);
+                LOG.info("构建转换时间");
+                result.setPlanTime(sdf.parse(planTime));
 			} catch (ParseException e) {
-				e.printStackTrace();
+				LOG.warn(e.getMessage());
 				LOG.warn("时间转换错误");
 			}
 		}

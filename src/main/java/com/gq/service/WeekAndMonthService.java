@@ -11,6 +11,7 @@ import com.gq.entity.WorkOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class WeekAndMonthService {
@@ -42,22 +43,33 @@ public class WeekAndMonthService {
         List<WorkOrder> thirdWeek = new ArrayList<>();
         List<WorkOrder> fourthWeek = new ArrayList<>();
 
-        for (WorkOrder myOrder: myOrders)
-        {
-            if (myOrder.getCreateDate().before(weekDate[0])) {
-                firstWeek.add(myOrder);
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            for (WorkOrder myOrder : myOrders) {
+                Date createDate = myOrder.getCreateDate();
+                String format = sdf.format(createDate);
+                LOG.info(format);
+                if (createDate.before(weekDate[0])) {
+                    firstWeek.add(myOrder);
+                    continue;
+                }
+                if (createDate.before(weekDate[1]) &&
+                        createDate.after(weekDate[0])) {
+                    secondWeek.add(myOrder);
+                    continue;
+                }
+                if (createDate.before(weekDate[2]) &&
+                        createDate.after(weekDate[1])) {
+                    thirdWeek.add(myOrder);
+                    continue;
+                }
+                if (createDate.after(weekDate[2])) {
+                    fourthWeek.add(myOrder);
+                }
             }
-            if (myOrder.getCreateDate().before(weekDate[1]) &&
-                    myOrder.getCreateDate().after(weekDate[0])) {
-                secondWeek.add(myOrder);
-            }
-            if (myOrder.getCreateDate().before(weekDate[2]) &&
-                    myOrder.getCreateDate().after(weekDate[1])) {
-                thirdWeek.add(myOrder);
-            }
-            if (myOrder.getCreateDate().after(weekDate[2])) {
-                fourthWeek.add(myOrder);
-            }
+        }catch (NullPointerException e){
+            LOG.warn(e.getMessage());
+            LOG.warn("NULLPointerException");
         }
 
         Map<Integer,List<WorkOrder>> weekMap = new HashMap<>();
