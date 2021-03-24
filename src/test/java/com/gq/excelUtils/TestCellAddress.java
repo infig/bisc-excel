@@ -34,6 +34,9 @@ public class TestCellAddress {
         String workOrderPath = "/home/v/文档/temp/workOrderForText.txt";
         List<WorkOrder> workOrders = InputText.readWorkOrder(workOrderPath);
         Date[] theDate = new Date[3];
+        theDate[0]=new Date("2021/2/7");
+        theDate[1]=new Date("2021/2/14");
+        theDate[2]=new Date("2021/2/21");
         Map<Integer, List<WorkOrder>> weekOrders = service.getWeekOrders(workOrders,theDate);
         Workbook workbook = BuildExcel.buildWeeks(weekOrders);
         ExcelWriter.writerFile(workbook,"./testBuildWeek.xlsx");

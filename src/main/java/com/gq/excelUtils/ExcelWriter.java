@@ -80,13 +80,13 @@ public class ExcelWriter {
         Sheet sheet = workbook.createSheet(sheetName);
         CellStyle cellStyle = workbook.createCellStyle();
 //        cellStyle.setFillBackgroundColor(HSSFColor.HSSFColorPredefined.DARK_GREEN.getIndex2());
-        cellStyle.setFillPattern(FillPatternType.forInt(17));
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-        cellStyle.setBorderBottom(BorderStyle.HAIR);
-        cellStyle.setBorderLeft(BorderStyle.HAIR);
-        cellStyle.setBorderRight(BorderStyle.HAIR);
-        cellStyle.setBorderTop(BorderStyle.HAIR);
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
+        cellStyle.setBorderTop(BorderStyle.THIN);
         Row row = sheet.createRow(0);
         sheet.getRow(0).setHeight((short) (22*20));
         for (int i = 0; i<cellList.size(); i++)

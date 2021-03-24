@@ -68,10 +68,10 @@ public class BuildExcel {
         CellStyle cellStyleForCenter = workbook.createCellStyle();
         cellStyleForCenter.setAlignment(HorizontalAlignment.CENTER);
         cellStyleForCenter.setVerticalAlignment(VerticalAlignment.CENTER);
-        cellStyleForCenter.setBorderBottom(BorderStyle.HAIR);
-        cellStyleForCenter.setBorderLeft(BorderStyle.HAIR);
-        cellStyleForCenter.setBorderRight(BorderStyle.HAIR);
-        cellStyleForCenter.setBorderTop(BorderStyle.HAIR);
+        cellStyleForCenter.setBorderBottom(BorderStyle.THIN);
+        cellStyleForCenter.setBorderLeft(BorderStyle.THIN);
+        cellStyleForCenter.setBorderRight(BorderStyle.THIN);
+        cellStyleForCenter.setBorderTop(BorderStyle.THIN);
 
         //-------------第一行------------------
         Row row1 = sheet.createRow(1);
@@ -82,13 +82,13 @@ public class BuildExcel {
         sheet.addMergedRegion(regionA2_A15);
 
         CellStyle cellStyleForTOP = workbook.createCellStyle();
-        cellStyleForTOP.setFillPattern(FillPatternType.forInt(17));
+        cellStyleForTOP.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         cellStyleForTOP.setAlignment(HorizontalAlignment.CENTER);
         cellStyleForTOP.setVerticalAlignment(VerticalAlignment.CENTER);
-        cellStyleForTOP.setBorderBottom(BorderStyle.HAIR);
-        cellStyleForTOP.setBorderLeft(BorderStyle.HAIR);
-        cellStyleForTOP.setBorderRight(BorderStyle.HAIR);
-        cellStyleForTOP.setBorderTop(BorderStyle.HAIR);
+        cellStyleForTOP.setBorderBottom(BorderStyle.THIN);
+        cellStyleForTOP.setBorderLeft(BorderStyle.THIN);
+        cellStyleForTOP.setBorderRight(BorderStyle.THIN);
+        cellStyleForTOP.setBorderTop(BorderStyle.THIN);
 
         Cell cellA2_A15 = row1.createCell(0);
         cellA2_A15.setCellStyle(cellStyleForTOP);
@@ -115,10 +115,10 @@ public class BuildExcel {
         cellStyle.setDataFormat(dataFormat.getFormat("0.00%"));
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-        cellStyle.setBorderBottom(BorderStyle.HAIR);
-        cellStyle.setBorderLeft(BorderStyle.HAIR);
-        cellStyle.setBorderRight(BorderStyle.HAIR);
-        cellStyle.setBorderTop(BorderStyle.HAIR);
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
+        cellStyle.setBorderTop(BorderStyle.THIN);
 
 
         Cell cellE2 = row1.createCell(4);

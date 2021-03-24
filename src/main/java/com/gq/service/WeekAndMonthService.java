@@ -20,32 +20,32 @@ public class WeekAndMonthService {
 
     public Map<Integer, List<WorkOrder>> getWeekOrders(List<WorkOrder> list,Date[] weekDate)
     {
-        List<WorkOrder> myOrders = new ArrayList<>();
-            for (WorkOrder order : list)
-            {
-//                int index = 0;
-                try {
-                    if (order.getSolution().indexOf("李云海")>=0)
-                    {
-                        if(order != null)
-                            myOrders.add(order);
-                        else
-                            continue;
-                    }
-//                    index++;
-                }catch (NullPointerException e){
-                    LOG.error(e.getMessage());
-//                    LOG.error(String.valueOf(index));
-                }
-            }
+//        List<WorkOrder> myOrders = new ArrayList<>();
+//            for (WorkOrder order : list)
+//            {
+////                int index = 0;
+//                try {
+//                    if (order.getSolution().indexOf("李云海")>=0)
+//                    {
+//                        if(order != null)
+//                            myOrders.add(order);
+//                        else
+//                            continue;
+//                    }
+////                    index++;
+//                }catch (NullPointerException e){
+//                    LOG.error(e.getMessage());
+////                    LOG.error(String.valueOf(index));
+//                }
+//            }
         List<WorkOrder> firstWeek = new ArrayList<>();
         List<WorkOrder> secondWeek = new ArrayList<>();
         List<WorkOrder> thirdWeek = new ArrayList<>();
         List<WorkOrder> fourthWeek = new ArrayList<>();
 
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            for (WorkOrder myOrder : myOrders) {
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            for (WorkOrder myOrder : list) {
                 Date createDate = myOrder.getCreateDate();
 //                String format = sdf.format(createDate);
 //                LOG.info(format);
