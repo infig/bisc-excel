@@ -47,8 +47,8 @@ public class WeekAndMonthService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             for (WorkOrder myOrder : myOrders) {
                 Date createDate = myOrder.getCreateDate();
-                String format = sdf.format(createDate);
-                LOG.info(format);
+//                String format = sdf.format(createDate);
+//                LOG.info(format);
                 if (createDate.before(weekDate[0])) {
                     firstWeek.add(myOrder);
                     continue;
